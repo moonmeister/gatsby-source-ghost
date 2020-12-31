@@ -1,0 +1,59 @@
+diff --git a/node_modules/@tryghost/admin-api/lib/index.js b/node_modules/@tryghost/admin-api/lib/index.js
+index b45562c..4bd9714
+--- a/node_modules/@tryghost/admin-api/lib/index.js
++++ b/node_modules/@tryghost/admin-api/lib/index.js
+@@ -13,7 +13,7 @@ module.exports = function GhostAdminAPI(options) {
+ 
+     const defaultConfig = {
+         ghostPath: 'ghost',
+-        makeRequest({url, method, data, params = {}, headers = {}}) {
++        makeRequest({ url, method, data, params = {}, headers = {} }) {
+             return axios({
+                 url,
+                 method,
+@@ -78,7 +78,8 @@ module.exports = function GhostAdminAPI(options) {
+         // @NOTE: experimental
+         'users',
+         'subscribers',
+-        'members'
++        'members',
++        'actions'
+     ];
+ 
+     const api = resources.reduce((apiObject, resourceType) => {
+@@ -260,7 +261,7 @@ module.exports = function GhostAdminAPI(options) {
+                 return Promise.reject(new Error('Missing theme name'));
+             }
+ 
+-            return makeResourceRequest('themes', {}, {}, 'PUT', {id: `${name}/activate`});
++            return makeResourceRequest('themes', {}, {}, 'PUT', { id: `${name}/activate` });
+         }
+     };
+ 
+@@ -303,12 +304,12 @@ module.exports = function GhostAdminAPI(options) {
+             if (data[resourceType].length === 1 && !data.meta) {
+                 return data[resourceType][0];
+             }
+-            return Object.assign(data[resourceType], {meta: data.meta});
++            return Object.assign(data[resourceType], { meta: data.meta });
+         });
+     }
+ 
+-    function endpointFor(resource, {id, slug, email} = {}) {
+-        const {ghostPath, version} = config;
++    function endpointFor(resource, { id, slug, email } = {}) {
++        const { ghostPath, version } = config;
+         let endpoint = `/${ghostPath}/api/${version}/admin/${resource}/`;
+ 
+         if (id) {
+@@ -322,8 +323,8 @@ module.exports = function GhostAdminAPI(options) {
+         return endpoint;
+     }
+ 
+-    function makeApiRequest({endpoint, method, body, queryParams = {}, headers = {}}) {
+-        const {url: apiUrl, key, version, makeRequest} = config;
++    function makeApiRequest({ endpoint, method, body, queryParams = {}, headers = {} }) {
++        const { url: apiUrl, key, version, makeRequest } = config;
+         const url = `${apiUrl}${endpoint}`;
+ 
+         headers = Object.assign({}, headers, {

@@ -8,8 +8,8 @@
  * https://ghost.org/docs/api/v3/
  */
 
-const Promise = require('bluebird');
 const ContentAPI = require('./content-api');
+const {pluginConfigValidation} = require('./ghost-options-schema');
 const {
     PostNode,
     PageNode,
@@ -98,7 +98,7 @@ const transformCodeinjection = (posts) => {
  * Uses the Ghost Content API to fetch all posts, pages, tags, authors and settings
  * Creates nodes for each record, so that they are all available to Gatsby
  */
-exports.sourceNodes = ({actions}, configOptions) => {
+exports.sourceNodes = async ({actions}, configOptions) => {
     const {createNode} = actions;
 
     const api = ContentAPI.configure(configOptions);
@@ -210,3 +210,8 @@ exports.createSchemaCustomization = ({actions}) => {
     const {createTypes} = actions;
     createTypes(ghostTypes);
 };
+
+/**
+ * Validates plugin options and provides defaults
+ */
+exports.pluginOptionsSchema = pluginConfigValidation;

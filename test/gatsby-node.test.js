@@ -1,6 +1,6 @@
 const testUtils = require('./utils');
-const ContentAPI = require('../content-api');
-const gatsbyNode = require('../gatsby-node');
+const ContentAPI = require('../src/content-api');
+const gatsbyNode = require('../src/gatsby-node');
 
 describe('Basic Functionality', function () {
     beforeEach(function () {
@@ -15,7 +15,7 @@ describe('Basic Functionality', function () {
         const createNode = sinon.stub();
 
         gatsbyNode
-            .sourceNodes({actions: {createNode}}, {})
+            .sourceNodes({ actions: { createNode } }, {})
             .then(() => {
                 createNode.callCount.should.eql(7);
 
