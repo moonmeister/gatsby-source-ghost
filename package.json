@@ -37,7 +37,8 @@
     "@babel/runtime": "^7.12.5",
     "@tryghost/admin-api": "^1.3.5",
     "@tryghost/content-api": "1.4.11",
-    "cheerio": "1.0.0-rc.3",
+    "cheerio": "1.0.0-rc.5",
+    "cherio": "^1.0.0-rc.2",
     "gatsby-node-helpers": "0.3.0",
     "patch-package": "^6.2.2",
     "qs": "6.9.4"
